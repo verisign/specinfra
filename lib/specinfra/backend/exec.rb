@@ -30,9 +30,11 @@ module Specinfra
       end
 
       def build_command(cmd)
-        shell = get_config(:shell) || '/bin/sh'
         cmd = cmd.shelljoin if cmd.is_a?(Array)
-        cmd = "#{shell.shellescape} -c #{cmd.to_s.shellescape}"
+        unless get_config(:no_shell)
+          shell = get_config(:shell) || '/bin/sh'
+          cmd = "#{shell.shellescape} -c #{cmd.to_s.shellescape}"
+        end
 
         path = get_config(:path)
         if path
