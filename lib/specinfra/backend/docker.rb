@@ -28,7 +28,7 @@ module Specinfra
       def run_command(cmd, opts={})
         cmd = build_command(cmd)
         cmd = add_pre_command(cmd)
-        docker_run!(cmd)
+        docker_run!(cmd, opts)
       end
 
       def build_command(cmd)
@@ -44,6 +44,7 @@ module Specinfra
           fail 'Cannot call send_file without docker_image.'
         end
 
+        @images << commit_container if @container
         @images << current_image.insert_local('localPath' => from, 'outputPath' => to)
         cleanup_container
         create_and_start_container
@@ -87,7 +88,7 @@ module Specinfra
       end
 
       def docker_run!(cmd, opts={})
-        stdout, stderr, status = @container.exec(['/bin/sh', '-c', cmd])
+        stdout, stderr, status = @container.exec(['/bin/sh', '-c', cmd], opts)
 
         CommandResult.new :stdout => stdout.join, :stderr => stderr.join,
         :exit_status => status
