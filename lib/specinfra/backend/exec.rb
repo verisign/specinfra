@@ -30,6 +30,7 @@ module Specinfra
       end
 
       def build_command(cmd)
+        shell = get_config(:shell) || '/bin/sh'
         cmd = cmd.shelljoin if cmd.is_a?(Array)
 
         unless get_config(:no_shell)
