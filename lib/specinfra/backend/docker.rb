@@ -40,14 +40,17 @@ module Specinfra
       end
 
       def send_file(from, to)
-        if @base_image.nil?
-          fail 'Cannot call send_file without docker_image.'
+        if @base_image
+          @images << commit_container if @container
+          @images << current_image.insert_local('localPath' => from, 'outputPath' => to)
+          cleanup_container
+          create_and_start_container
+        elsif @container
+          # This needs Docker >= 1.8
+          @container.archive_in(from, to)
+        else
+          fail 'Cannot call send_file without docker_image or docker_container.'
         end
-
-        @images << commit_container if @container
-        @images << current_image.insert_local('localPath' => from, 'outputPath' => to)
-        cleanup_container
-        create_and_start_container
       end
 
       def commit_container
@@ -76,6 +79,9 @@ module Specinfra
 
         @container = ::Docker::Container.create(opts)
         @container.start
+        while @container.json['State'].key?('Health') && @container.json['State']['Health']['Status'] == "starting" do
+          sleep 0.5
+        end
       end
 
       def cleanup_container
@@ -88,6 +94,7 @@ module Specinfra
       end
 
       def docker_run!(cmd, opts={})
+        opts.merge!(get_config(:docker_container_exec_options) || {})
         stdout, stderr, status = @container.exec(['/bin/sh', '-c', cmd], opts)
 
         CommandResult.new :stdout => stdout.join, :stderr => stderr.join,
