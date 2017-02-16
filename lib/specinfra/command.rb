@@ -185,6 +185,10 @@ require 'specinfra/command/ubuntu/v15/service'
 require 'specinfra/command/linuxmint'
 require 'specinfra/command/linuxmint/base'
 
+# elementary OS (inherit Ubuntu)
+require 'specinfra/command/elementary'
+require 'specinfra/command/elementary/base'
+
 # Cumulus Networks (inherit Debian)
 require 'specinfra/command/cumulus'
 require 'specinfra/command/cumulus/base'
@@ -234,6 +238,7 @@ require 'specinfra/command/freebsd/base/group'
 require 'specinfra/command/freebsd/base/host'
 require 'specinfra/command/freebsd/base/interface'
 require 'specinfra/command/freebsd/base/inventory'
+require 'specinfra/command/freebsd/base/kernel_module'
 require 'specinfra/command/freebsd/base/package'
 require 'specinfra/command/freebsd/base/port'
 require 'specinfra/command/freebsd/base/process'
