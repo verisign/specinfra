@@ -35,6 +35,7 @@ require 'specinfra/command/base/iptables'
 require 'specinfra/command/base/ip6tables'
 require 'specinfra/command/base/kernel_module'
 require 'specinfra/command/base/lxc_container'
+require 'specinfra/command/base/kvm_guest'
 require 'specinfra/command/base/localhost'
 require 'specinfra/command/base/mail_alias'
 require 'specinfra/command/base/package'
@@ -62,6 +63,7 @@ require 'specinfra/command/linux/base/iptables'
 require 'specinfra/command/linux/base/ip6tables'
 require 'specinfra/command/linux/base/kernel_module'
 require 'specinfra/command/linux/base/lxc_container'
+require 'specinfra/command/linux/base/kvm_guest'
 require 'specinfra/command/linux/base/package'
 require 'specinfra/command/linux/base/ppa'
 require 'specinfra/command/linux/base/selinux'
@@ -112,6 +114,10 @@ require 'specinfra/command/eos/base'
 require 'specinfra/command/amazon'
 require 'specinfra/command/amazon/base'
 
+# Amazon Linux V2 (inherit RedHat)
+require 'specinfra/command/amazon/v2'
+require 'specinfra/command/amazon/v2/service'
+
 # AIX (inherit Base)
 require 'specinfra/command/aix'
 require 'specinfra/command/aix/base'
@@ -127,6 +133,7 @@ require 'specinfra/command/aix/base/user'
 # Alpine (inherit Linux)
 require 'specinfra/command/alpine'
 require 'specinfra/command/alpine/base'
+require 'specinfra/command/alpine/base/host'
 require 'specinfra/command/alpine/base/package'
 require 'specinfra/command/alpine/base/process'
 require 'specinfra/command/alpine/base/service'
@@ -161,12 +168,17 @@ require 'specinfra/command/debian'
 require 'specinfra/command/debian/base'
 require 'specinfra/command/debian/base/package'
 require 'specinfra/command/debian/base/ppa'
+require 'specinfra/command/debian/base/port'
 require 'specinfra/command/debian/base/service'
 
 # Debian V8 (inherit Debian)
 require 'specinfra/command/debian/v8'
 require 'specinfra/command/debian/v8/service'
 require 'specinfra/command/debian/v8/port'
+
+# Devuan (inherit Debian)
+require 'specinfra/command/devuan'
+require 'specinfra/command/devuan/base'
 
 # Raspbian (inherit Debian)
 require 'specinfra/command/raspbian'
@@ -245,6 +257,7 @@ require 'specinfra/command/freebsd/base/process'
 require 'specinfra/command/freebsd/base/service'
 require 'specinfra/command/freebsd/base/routing_table'
 require 'specinfra/command/freebsd/base/user'
+require 'specinfra/command/freebsd/base/zfs'
 
 # FreeBSD V6 (inherit FreeBSD)
 require 'specinfra/command/freebsd/v6'
@@ -262,6 +275,10 @@ require 'specinfra/command/freebsd/v8/package'
 # FreeBSD V9 (inherit FreeBSD)
 require 'specinfra/command/freebsd/v9'
 require 'specinfra/command/freebsd/v9/package'
+
+# FreeBSD V11 (inherit FreeBSD)
+require 'specinfra/command/freebsd/v11'
+require 'specinfra/command/freebsd/v11/interface'
 
 # OpenBSD (inherit Base)
 require 'specinfra/command/openbsd'
